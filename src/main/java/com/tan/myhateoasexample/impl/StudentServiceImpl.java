@@ -1,5 +1,6 @@
 package com.tan.myhateoasexample.impl;
 
+import com.tan.myhateoasexample.controller.LectureController;
 import com.tan.myhateoasexample.controller.StudentController;
 import com.tan.myhateoasexample.dto.Student;
 import com.tan.myhateoasexample.dto.StudentRef;
@@ -60,6 +61,11 @@ public class StudentServiceImpl implements IStudentService {
       //adding hateoas links to student object
       final Link selfLink = WebMvcLinkBuilder.linkTo(StudentController.class).slash(student.getId()).withSelfRel();
       student.add(selfLink);
+
+      student.getLectureList().forEach(lectureRef -> {
+        final Link selfLectureLink = WebMvcLinkBuilder.linkTo(LectureController.class).slash(lectureRef.getId()).withSelfRel();
+        lectureRef.add(selfLectureLink);
+      });
 
       return student;
     }

@@ -1,9 +1,7 @@
 package com.tan.myhateoasexample.mapper;
 
-import com.tan.myhateoasexample.dto.LectureRef;
 import com.tan.myhateoasexample.dto.Student;
 import com.tan.myhateoasexample.dto.StudentRef;
-import com.tan.myhateoasexample.entity.LectureEntity;
 import com.tan.myhateoasexample.entity.StudentEntity;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -13,7 +11,8 @@ import java.util.Objects;
 
 @Mapper(
     componentModel = "spring",
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+    uses = {LectureMapper.class}
 )
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface StudentMapper {

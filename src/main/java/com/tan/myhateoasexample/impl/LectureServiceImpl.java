@@ -1,17 +1,12 @@
 package com.tan.myhateoasexample.impl;
 
 import com.tan.myhateoasexample.controller.LectureController;
-import com.tan.myhateoasexample.controller.StudentController;
 import com.tan.myhateoasexample.dto.Lecture;
 import com.tan.myhateoasexample.dto.LectureRef;
-import com.tan.myhateoasexample.dto.Student;
-import com.tan.myhateoasexample.dto.StudentRef;
 import com.tan.myhateoasexample.entity.LectureEntity;
-import com.tan.myhateoasexample.entity.StudentEntity;
 import com.tan.myhateoasexample.mapper.LectureMapper;
 import com.tan.myhateoasexample.repository.LectureRepository;
 import com.tan.myhateoasexample.service.ILectureService;
-import com.tan.myhateoasexample.service.IStudentService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -63,7 +58,7 @@ public class LectureServiceImpl implements ILectureService {
       Lecture lecture = this.lectureMapper.toDto(lectureEntity.get());
 
       //adding hateoas links to student object
-      final Link selfLink = WebMvcLinkBuilder.linkTo(StudentController.class).slash(lecture.getId()).withSelfRel();
+      final Link selfLink = WebMvcLinkBuilder.linkTo(LectureController.class).slash(lecture.getId()).withSelfRel();
       lecture.add(selfLink);
 
       return lecture;

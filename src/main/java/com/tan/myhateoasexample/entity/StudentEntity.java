@@ -1,6 +1,5 @@
 package com.tan.myhateoasexample.entity;
 
-import com.tan.myhateoasexample.dto.Lecture;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +18,5 @@ public class StudentEntity implements Serializable {
   @Id
   private String id;
   private String name;
-  private List<Lecture> lectureList;
+  private List<LectureEntity> lectureList;
 }

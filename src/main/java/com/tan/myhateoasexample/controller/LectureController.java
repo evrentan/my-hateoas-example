@@ -2,9 +2,8 @@ package com.tan.myhateoasexample.controller;
 
 import com.tan.myhateoasexample.dto.Lecture;
 import com.tan.myhateoasexample.dto.LectureRef;
-import com.tan.myhateoasexample.dto.Student;
-import com.tan.myhateoasexample.dto.StudentRef;
 import com.tan.myhateoasexample.service.ILectureService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -30,9 +29,13 @@ public class LectureController {
   ResponseEntity<CollectionModel<LectureRef>> getAllLectureRefList() {
     List<LectureRef> lectureRefList = this.lectureService.getAllLectureRefList();
 
-    final Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(LectureController.class).getAllLectureRefList()).withSelfRel();
+    CollectionModel<LectureRef> lectureRefCollectionModel = null;
+    if (CollectionUtils.isNotEmpty(lectureRefList)) {
+      final Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(LectureController.class).getAllLectureRefList()).withSelfRel();
+      lectureRefCollectionModel = CollectionModel.of(lectureRefList, link);
+    }
 
-    return Optional.of(CollectionModel.of(lectureRefList, link))
+    return Optional.ofNullable(lectureRefCollectionModel)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
